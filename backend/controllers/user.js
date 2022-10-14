@@ -1,7 +1,9 @@
+// imports
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+// signup with a new account to the site
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
@@ -16,6 +18,7 @@ exports.signup = (req, res, next) => {
       .catch(error => res.status(500).json({ error }));
 };
 
+// login and receive a valid token
 exports.login = (req, res, next) => {
     User.findOne({ email: req.body.email })
     .then(user => {

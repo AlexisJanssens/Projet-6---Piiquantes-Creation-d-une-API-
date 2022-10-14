@@ -1,11 +1,14 @@
+// imports
 const multer = require('multer');
 
+// definitions of extensions authorized
 const MIME_TYPES = {
   'image/jpg': 'jpg',
   'image/jpeg': 'jpg',
   'image/png': 'png'
 };
 
+// path for storage of images // rename
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, 'images');

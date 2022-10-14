@@ -1,6 +1,8 @@
+// imports
 const Sauce = require('../models/Sauce');
 const fs = require('fs')
 
+// display all sauces
 exports.getAllSauces = (req, res, next) => {
     Sauce.find()
     .then((sauces) => { 
@@ -11,6 +13,7 @@ exports.getAllSauces = (req, res, next) => {
     });
 };
 
+// create a sauce
 exports.createSauce = (req, res, next) => {
     const sauceObject = JSON.parse(req.body.sauce);
     delete sauceObject._id;
@@ -26,10 +29,11 @@ exports.createSauce = (req, res, next) => {
         res.status(201).json({message: 'Objet enregistré !'})
     })
     .catch(error => { 
-        res.status(400).json( { error })
+        res.status(400).json({ error })
     });
 };
 
+// get one specific sauce
 exports.getOneSauce = (req, res, next) => {
     Sauce.findOne({_id: req.params.id})
     .then((sauce) => {
@@ -40,6 +44,7 @@ exports.getOneSauce = (req, res, next) => {
     });
 };
 
+// delete a specific sauce
 exports.deleteSauce = (req, res, next) => {
     Sauce.findOne({_id: req.params.id})
     .then(sauce => {

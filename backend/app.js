@@ -1,11 +1,12 @@
+// imports from node
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path')
-
+// imports from local
 const sauceRoutes = require('./routes/sauce')
 const userRoutes = require('./routes/user')
 
-
+// connection to MongoDB
 mongoose.connect('mongodb+srv://PiiquantesAdmin:admin@piiquantes.2hiub6x.mongodb.net/?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
@@ -13,11 +14,13 @@ mongoose.connect('mongodb+srv://PiiquantesAdmin:admin@piiquantes.2hiub6x.mongodb
   .catch(() => console.log('Connexion à MongoDB échouée !'))
 ;
 
-
+// creation of express application
 const app = express();
 
+// parse request body
 app.use(express.json());
 
+// Cors
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -25,6 +28,7 @@ app.use((req, res, next) => {
     next();
 });
 
+// roads for API
 app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')))
